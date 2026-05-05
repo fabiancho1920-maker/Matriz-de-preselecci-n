@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exploración y Preselección — Herramientas de Videoconferencia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --orange:#D85A30;
+  --amber:#EF9F27;
+  --dark:#1A1814;
+  --mid:#3C3830;
+  --warm-gray:#7A7570;
+  --cream:#F9F6F1;
+  --cream-alt:#F2EDE5;
+  --border:#E2DAD0;
+  --green:#1D9E75;
+  --green-light:#E1F5EE;
+  --blue:#2266CC;
+  --blue-light:#E6F1FB;
+  --red:#C0392B;
+  --s0-bg:#E8E6DE;--s0-tx:#4A4840;
+  --s1-bg:#FAE0B0;--s1-tx:#5A3800;
+  --s2-bg:#B8EDD9;--s2-tx:#05382C;
+  --s3-bg:#C8E6A0;--s3-tx:#1A3A04;
+  --pre-bg:#C8E6A0;--pre-tx:#1A3A04;
+  --rev-bg:#FAE0B0;--rev-tx:#5A3800;
+  --des-bg:#E8E6DE;--des-tx:#4A4840;
+}
+
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);line-height:1.6;font-size:15px}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(249,246,241,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;gap:1rem}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-logo{width:28px;height:28px}
+.nav-name{font-family:'Fraunces',serif;font-size:14px;font-weight:600;color:var(--dark);letter-spacing:-.01em}
+.nav-links{display:flex;gap:1.5rem;list-style:none}
+.nav-links a{font-size:12.5px;font-weight:500;color:var(--warm-gray);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--orange)}
+.nav-phase{font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;background:var(--orange);color:#fff;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+
+/* HERO */
+.hero{padding:80px 2rem 64px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem}
+.hero-tag{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--orange)}
+.hero-line{width:32px;height:1px;background:var(--orange)}
+.hero-title{font-family:'Fraunces',serif;font-size:clamp(2.2rem,4vw,3.4rem);line-height:1.12;font-weight:700;color:var(--dark);letter-spacing:-.02em;margin-bottom:1.25rem}
+.hero-title em{font-style:italic;color:var(--orange)}
+.hero-desc{font-size:15px;color:var(--warm-gray);line-height:1.7;max-width:480px;margin-bottom:2rem}
+.hero-meta{display:flex;gap:1rem;flex-wrap:wrap}
+.hero-chip{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:500;padding:5px 12px;border-radius:20px;border:1px solid var(--border);color:var(--mid)}
+.hero-chip .dot{width:6px;height:6px;border-radius:50%}
+.hero-visual{background:var(--cream-alt);border:1px solid var(--border);border-radius:16px;padding:2rem;position:relative;overflow:hidden}
+.hero-visual::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(216,90,48,.12),transparent 70%)}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.kpi{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.25rem}
+.kpi-num{font-family:'Fraunces',serif;font-size:2rem;font-weight:700;color:var(--orange);line-height:1}
+.kpi-label{font-size:11px;color:var(--warm-gray);margin-top:4px;font-weight:500}
+.kpi-accent{background:var(--orange);color:#fff;border-color:var(--orange)}
+.kpi-accent .kpi-num{color:#fff}
+.kpi-accent .kpi-label{color:rgba(255,255,255,.75)}
+
+/* SECTION STRUCTURE */
+section{padding:64px 2rem}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:.75rem}
+.section-number{font-family:'Fraunces',serif;font-size:13px;font-weight:600;color:var(--orange)}
+.section-rule{flex:1;height:1px;background:var(--border)}
+.section-title{font-family:'Fraunces',serif;font-size:clamp(1.5rem,2.5vw,2rem);font-weight:700;color:var(--dark);letter-spacing:-.02em;margin-bottom:.75rem}
+.section-sub{font-size:14.5px;color:var(--warm-gray);max-width:640px;line-height:1.7}
+
+/* CONTEXT */
+.context-bg{background:var(--dark)}
+.context-bg .section-title{color:#fff}
+.context-bg .section-sub{color:rgba(255,255,255,.55)}
+.context-bg .section-number{color:var(--amber)}
+.context-bg .section-rule{background:rgba(255,255,255,.1)}
+.ctx-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem}
+.ctx-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.5rem}
+.ctx-card-icon{width:36px;height:36px;border-radius:8px;background:rgba(239,159,39,.15);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:1rem}
+.ctx-card h3{font-family:'Fraunces',serif;font-size:15px;font-weight:600;color:#fff;margin-bottom:.5rem}
+.ctx-card p{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6}
+.ctx-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:2rem}
+.ctx-tag{font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);font-weight:500}
+.ctx-tag.active{background:var(--amber);color:var(--dark);border-color:var(--amber);font-weight:600}
+
+/* CRITERIA */
+.criteria-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:2.5rem}
+.criterion{display:flex;gap:1rem;padding:1.25rem;background:#fff;border:1px solid var(--border);border-radius:12px;position:relative;overflow:hidden;transition:box-shadow .2s}
+.criterion:hover{box-shadow:0 4px 20px rgba(0,0,0,.07)}
+.criterion.new::after{content:'NUEVO';position:absolute;top:10px;right:10px;font-size:9px;font-weight:700;letter-spacing:.08em;color:var(--orange);background:rgba(216,90,48,.08);padding:2px 6px;border-radius:4px}
+.criterion-num{width:36px;height:36px;border-radius:8px;background:var(--cream-alt);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:14px;font-weight:700;color:var(--orange);flex-shrink:0}
+.criterion-num.hl{background:var(--orange);color:#fff}
+.criterion h3{font-size:13.5px;font-weight:600;color:var(--dark);margin-bottom:3px}
+.criterion p{font-size:12px;color:var(--warm-gray);line-height:1.55}
+
+/* MATRIX */
+.matrix-section{background:var(--cream-alt)}
+.matrix-toolbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:1.5rem;margin-top:2.5rem}
+.matrix-filters{display:flex;gap:8px}
+.mf-btn{font-size:12px;font-weight:500;padding:6px 16px;border-radius:20px;border:1px solid var(--border);background:#fff;color:var(--warm-gray);cursor:pointer;transition:all .2s}
+.mf-btn:hover{border-color:var(--orange);color:var(--orange)}
+.mf-btn.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+.sort-toggle{font-size:12px;font-weight:500;padding:6px 16px;border-radius:20px;border:1px solid var(--border);background:#fff;color:var(--warm-gray);cursor:pointer;transition:all .2s}
+.sort-toggle:hover{border-color:var(--mid);color:var(--mid)}
+.matrix-legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:1.5rem}
+.ml-item{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--warm-gray)}
+.ml-sq{width:12px;height:12px;border-radius:3px}
+.matrix-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border);background:#fff}
+table.mx{width:100%;border-collapse:collapse;font-size:11px;table-layout:fixed}
+table.mx th,table.mx td{padding:8px 5px;border-bottom:1px solid #F0EBE3;text-align:center;vertical-align:middle}
+table.mx thead th{font-size:9.5px;font-weight:600;letter-spacing:.03em;color:var(--warm-gray);background:#FAFAF8;text-transform:uppercase;position:sticky;top:0}
+table.mx thead th.th-tool{text-align:left;padding-left:16px}
+table.mx thead th.th-lms{color:#085041;background:#F0FAF6}
+table.mx thead th.th-sso{color:#0C447C;background:#EEF4FB}
+table.mx thead th.th-new{color:#8B2E1C;background:#FDF0EC}
+table.mx thead th.th-div{border:none;background:transparent;width:8px;padding:0}
+table.mx tbody td.td-div{border:none;background:transparent;padding:0}
+table.mx tbody tr:last-child td{border-bottom:none}
+table.mx tbody tr:hover{background:#FDFBF8}
+table.mx tbody td.tn{text-align:left;font-weight:600;font-size:12px;color:var(--dark);cursor:pointer;padding-left:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+table.mx tbody td.tn:hover{color:var(--orange)}
+.sc{cursor:pointer;border-radius:4px;font-weight:600;font-size:12px;transition:opacity .15s}
+.sc:hover{opacity:.7}
+.s0{background:var(--s0-bg);color:var(--s0-tx)}
+.s1{background:var(--s1-bg);color:var(--s1-tx)}
+.s2{background:var(--s2-bg);color:var(--s2-tx)}
+.s3{background:var(--s3-bg);color:var(--s3-tx)}
+.tot-cell{font-family:'Fraunces',serif;font-weight:700;font-size:14px;color:var(--dark)}
+.bar-wrap{width:38px;height:5px;background:#EDE8E0;border-radius:3px;display:inline-block;vertical-align:middle;margin-left:4px}
+.bar-fill{height:100%;border-radius:3px;background:var(--green)}
+.badge{font-size:9.5px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.04em;text-transform:uppercase}
+.bp{background:var(--pre-bg);color:var(--pre-tx)}
+.br{background:var(--rev-bg);color:var(--rev-tx)}
+.bd{background:var(--des-bg);color:var(--des-tx)}
+.detail-panel{margin-top:1rem;padding:14px 18px;background:#fff;border:1px solid var(--border);border-radius:10px;font-size:13px;line-height:1.7;min-height:52px;color:var(--warm-gray)}
+.detail-panel b{color:var(--dark);font-weight:600}
+.dp-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:6px}
+
+/* RESULTS */
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
+.result-group h3{font-family:'Fraunces',serif;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.result-group h3 span{width:10px;height:10px;border-radius:50%;display:inline-block}
+.result-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.25rem;margin-bottom:.75rem}
+.result-card.pre{border-left:3px solid var(--green)}
+.result-card.rev{border-left:3px solid var(--amber)}
+.result-card.des{border-left:3px solid #C8C4BC}
+.rc-name{font-weight:600;font-size:13.5px;color:var(--dark);margin-bottom:6px}
+.rc-score{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--dark);line-height:1}
+.rc-of{font-size:11px;color:var(--warm-gray);font-weight:400}
+.rc-bar{width:100%;height:6px;background:#EDE8E0;border-radius:3px;margin-top:8px}
+.rc-bar-fill{height:100%;border-radius:3px}
+.rc-note{font-size:11.5px;color:var(--warm-gray);margin-top:8px;line-height:1.5}
+
+/* INSIGHTS */
+.insights-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:2.5rem}
+.insight{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.75rem;position:relative;overflow:hidden}
+.insight::before{content:attr(data-n);position:absolute;top:-10px;right:16px;font-family:'Fraunces',serif;font-size:80px;font-weight:700;color:rgba(216,90,48,.06);line-height:1;pointer-events:none}
+.insight-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);margin-bottom:.75rem}
+.insight h3{font-family:'Fraunces',serif;font-size:17px;font-weight:700;color:var(--dark);margin-bottom:.75rem;line-height:1.3}
+.insight p{font-size:13px;color:var(--warm-gray);line-height:1.7}
+.insight-tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-top:1rem}
+
+/* NEXT STEPS */
+.steps-list{margin-top:2.5rem;display:flex;flex-direction:column;gap:1rem}
+.step{display:flex;gap:1.5rem;align-items:flex-start;padding:1.5rem;background:#fff;border:1px solid var(--border);border-radius:12px}
+.step-num{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;color:var(--orange);line-height:1;flex-shrink:0;width:40px}
+.step-body h3{font-size:14px;font-weight:600;color:var(--dark);margin-bottom:4px}
+.step-body p{font-size:13px;color:var(--warm-gray);line-height:1.6}
+.step-body .resp{font-size:11.5px;font-weight:600;color:var(--orange);margin-top:8px;display:flex;align-items:center;gap:5px}
+
+/* FOOTER */
+footer{background:var(--dark);padding:2.5rem 2rem;text-align:center}
+.footer-logo{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:6px}
+.footer-logo em{color:var(--amber);font-style:normal}
+.footer-sub{font-size:12px;color:rgba(255,255,255,.35);margin-bottom:1.5rem}
+.footer-chips{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.footer-chip{font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4)}
+
+/* DIVIDER */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0 2rem}
+
+/* BIBLIOGRAPHY */
+.bib-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;margin-top:2.5rem}
+.bib-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.5rem}
+.bib-tool-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.bib-tool-name{font-family:'Fraunces',serif;font-size:14px;font-weight:600;color:#fff}
+.bib-source-count{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;background:rgba(239,159,39,.15);color:var(--amber)}
+.bib-list{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+.bib-list li{display:flex;gap:8px;align-items:flex-start}
+.bib-tag{font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:4px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.45);white-space:nowrap;flex-shrink:0;margin-top:2px}
+.bib-list a{font-size:12px;color:rgba(255,255,255,.55);text-decoration:none;line-height:1.5;transition:color .2s}
+.bib-list a:hover{color:var(--amber)}
+.bib-note{margin-top:2rem;padding:1rem 1.25rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-left:3px solid var(--amber);border-radius:8px;font-size:12.5px;color:rgba(255,255,255,.4);line-height:1.65}
+@media(max-width:900px){.bib-grid{grid-template-columns:1fr}}
+
+/* SCROLL ANIMATIONS */
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:none}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .ctx-cards{grid-template-columns:1fr}
+  .criteria-grid{grid-template-columns:1fr}
+  .results-grid{grid-template-columns:1fr}
+  .insights-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .hero-visual{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">
+    <span class="nav-name">UCompensar</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#contexto">Contexto</a></li>
+      <li><a href="#criterios">Criterios</a></li>
+      <li><a href="#matriz">Matriz</a></li>
+      <li><a href="#resultados">Resultados</a></li>
+      <li><a href="#hallazgos">Hallazgos</a></li>
+      <li><a href="#bibliografia">Bibliografía</a></li>
+    </ul>
+    <span class="nav-phase">Fase 1 · Preselección</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header>
+  <div class="hero">
+    <div class="fade-up">
+      <div class="hero-eyebrow">
+        <span class="hero-line"></span>
+        <span class="hero-tag">Gestión Tecnológica · DEV</span>
+      </div>
+      <h1 class="hero-title">Exploración y<br><em>Preselección</em> de<br>herramientas de<br>videoconferencia</h1>
+      <p class="hero-desc">Levantamiento, depuración y evaluación comparativa de soluciones de videoconferencia disponibles en el mercado, orientado a identificar alternativas viables dentro del contexto institucional de UCompensar.</p>
+      <div class="hero-meta">
+        <span class="hero-chip"><span class="dot" style="background:#1D9E75"></span>LMS: Open LMS</span>
+        <span class="hero-chip"><span class="dot" style="background:#2266CC"></span>SSO: Azure AD</span>
+        <span class="hero-chip"><span class="dot" style="background:#D85A30"></span>Soporte en español</span>
+      </div>
+    </div>
+    <div class="hero-visual fade-up" style="animation-delay:.15s">
+      <div class="kpi-grid">
+        <div class="kpi kpi-accent">
+          <div class="kpi-num">11</div>
+          <div class="kpi-label">Herramientas evaluadas</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-num">10</div>
+          <div class="kpi-label">Criterios de evaluación</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-num">3</div>
+          <div class="kpi-label">Preseleccionadas</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-num">30</div>
+          <div class="kpi-label">Puntaje máximo posible</div>
+        </div>
+      </div>
+      <div style="margin-top:1.25rem;padding:1rem;background:rgba(216,90,48,.06);border-radius:8px;border:1px solid rgba(216,90,48,.15)">
+        <div style="font-size:11px;font-weight:700;color:var(--orange);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px">Instrumento</div>
+        <div style="font-size:13px;color:var(--mid);line-height:1.5">Matriz de preselección comparativa con criterios priorizados por contexto de UCompensar</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="divider"></div>
+
+<!-- CONTEXTO -->
+<section id="contexto" class="context-bg">
+  <div class="section-inner">
+    <div class="section-eyebrow fade-up">
+      <span class="section-number">01</span>
+      <div class="section-rule"></div>
+    </div>
+    <h2 class="section-title fade-up">Contexto de la evaluación</h2>
+    <p class="section-sub fade-up">Esta etapa no busca determinar cuál es la mejor herramienta del mercado, sino establecer cuáles soluciones pueden ser funcionales dentro del contexto institucional específico.</p>
+    <div class="ctx-cards fade-up">
+      <div class="ctx-card">
+        <div class="ctx-card-icon">🎓</div>
+        <h3>Entorno educativo</h3>
+        <p>La solución debe soportar clases estructuradas con interacción pedagógica real: breakout rooms, pizarras, encuestas, grupos y flujo docente.</p>
+      </div>
+      <div class="ctx-card">
+        <div class="ctx-card-icon">🔗</div>
+        <h3>Integración institucional</h3>
+        <p>El LMS institucional es Open LMS (base Moodle). La autenticación es centralizada en Azure AD/Microsoft Entra ID. Ambas integraciones son condición obligatoria.</p>
+      </div>
+      <div class="ctx-card">
+        <div class="ctx-card-icon">🌎</div>
+        <h3>Soporte en español</h3>
+        <p>Todas las herramientas evaluadas deben tener soporte completo en español: interfaz, subtítulos (CC), atención técnica y documentación.</p>
+      </div>
+    </div>
+    <div class="ctx-tags fade-up">
+      <span class="ctx-tag active">Open LMS / Moodle</span>
+      <span class="ctx-tag active">Azure AD / Entra ID</span>
+      <span class="ctx-tag active">CC en español</span>
+      <span class="ctx-tag">Responsable: DEV · Gestión Tecnológica</span>
+    </div>
+  </div>
+</section>
+
+<!-- CRITERIOS -->
+<section id="criterios">
+  <div class="section-inner">
+    <div class="section-eyebrow fade-up">
+      <span class="section-number">02</span>
+      <div class="section-rule"></div>
+    </div>
+    <h2 class="section-title fade-up">Criterios de evaluación</h2>
+    <p class="section-sub fade-up">10 criterios priorizados según el contexto institucional. Cada criterio se puntúa de 0 a 3 (No cumple → Parcial → Cumple → Óptimo). Puntaje máximo: <strong>30 puntos</strong>.</p>
+    <div class="criteria-grid fade-up">
+      <div class="criterion">
+        <div class="criterion-num">01</div>
+        <div>
+          <h3>Presencia en entornos educativos o corporativos</h3>
+          <p>Adopción institucional comprobada. Comunidad, soporte y referencias verificables en el sector.</p>
+        </div>
+      </div>
+      <div class="criterion">
+        <div class="criterion-num">02</div>
+        <div>
+          <h3>Capacidad de soportar sesiones con múltiples usuarios</h3>
+          <p>Número de participantes simultáneos, estabilidad en sesiones masivas, escalabilidad documentada.</p>
+        </div>
+      </div>
+      <div class="criterion">
+        <div class="criterion-num">03</div>
+        <div>
+          <h3>Funcionalidades base</h3>
+          <p>Audio, video HD, grabación en nube, chat, compartir pantalla, sala de espera, encuestas y Q&A.</p>
+        </div>
+      </div>
+      <div class="criterion">
+        <div class="criterion-num">04</div>
+        <div>
+          <h3>Desarrollo de clases estructuradas</h3>
+          <p>Herramientas pedagógicas: breakout rooms, pizarra colaborativa, trabajo en grupo, flujo docente.</p>
+        </div>
+      </div>
+      <div class="criterion">
+        <div class="criterion-num">05</div>
+        <div>
+          <h3>Robustez</h3>
+          <p>Estabilidad bajo carga, SLA documentado, infraestructura cloud de clase empresarial, historial de incidentes.</p>
+        </div>
+      </div>
+      <div class="criterion">
+        <div class="criterion-num hl">06</div>
+        <div>
+          <h3>Integración con Open LMS (Moodle)</h3>
+          <p>Conector LTI oficial y activamente mantenido. Profundidad de integración con el ecosistema Moodle.</p>
+        </div>
+      </div>
+      <div class="criterion">
+        <div class="criterion-num hl">07</div>
+        <div>
+          <h3>Compatibilidad SSO con Azure AD</h3>
+          <p>Autenticación institucional vía SAML 2.0 con Microsoft Azure AD/Entra ID documentada y soportada.</p>
+        </div>
+      </div>
+      <div class="criterion new">
+        <div class="criterion-num">08</div>
+        <div>
+          <h3>Closed Captions en español</h3>
+          <p>Subtítulos automáticos en español en sesiones en vivo y transcripción automática en grabaciones con calidad institucional.</p>
+        </div>
+      </div>
+      <div class="criterion new">
+        <div class="criterion-num">09</div>
+        <div>
+          <h3>Control de asistencia</h3>
+          <p>Reportes de asistencia por sesión con hora de ingreso/salida, duración y exportación. Integración al LMS valorada.</p>
+        </div>
+      </div>
+      <div class="criterion new">
+        <div class="criterion-num">10</div>
+        <div>
+          <h3>Panel de administración</h3>
+          <p>Herramientas de gestión centralizada: usuarios, políticas de seguridad, analitica de uso y calidad. Curva de adopción para el equipo TI.</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:1.5rem;padding:1rem 1.25rem;background:rgba(216,90,48,.05);border:1px solid rgba(216,90,48,.15);border-radius:10px;font-size:13px;color:var(--warm-gray)">
+      <strong style="color:var(--orange)">Escala de puntuación:</strong> &nbsp;
+      <span style="margin-right:12px"><strong style="background:var(--s3-bg);color:var(--s3-tx);padding:1px 8px;border-radius:4px">3 – Óptimo</strong> cumple y supera el criterio</span>
+      <span style="margin-right:12px"><strong style="background:var(--s2-bg);color:var(--s2-tx);padding:1px 8px;border-radius:4px">2 – Cumple</strong> satisface el criterio</span>
+      <span style="margin-right:12px"><strong style="background:var(--s1-bg);color:var(--s1-tx);padding:1px 8px;border-radius:4px">1 – Parcial</strong> cumple con limitaciones</span>
+      <span><strong style="background:var(--s0-bg);color:var(--s0-tx);padding:1px 8px;border-radius:4px">0 – No cumple</strong> no satisface el criterio</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MATRIZ -->
+<section id="matriz" class="matrix-section">
+  <div class="section-inner">
+    <div class="section-eyebrow fade-up">
+      <span class="section-number" style="color:var(--orange)">03</span>
+      <div class="section-rule"></div>
+    </div>
+    <h2 class="section-title fade-up">Matriz de preselección</h2>
+    <p class="section-sub fade-up">Clic en cualquier celda para ver el análisis detallado de cada criterio. Las columnas destacadas corresponden a los criterios de contexto institucional.</p>
+
+    <div class="matrix-toolbar fade-up">
+      <div class="matrix-legend">
+        <span class="ml-item"><span class="ml-sq" style="background:var(--s3-bg)"></span>Óptimo (3)</span>
+        <span class="ml-item"><span class="ml-sq" style="background:var(--s2-bg)"></span>Cumple (2)</span>
+        <span class="ml-item"><span class="ml-sq" style="background:var(--s1-bg)"></span>Parcial (1)</span>
+        <span class="ml-item"><span class="ml-sq" style="background:var(--s0-bg)"></span>No cumple (0)</span>
+        <span class="ml-item" style="margin-left:8px"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#F0FAF6;border:1px solid #9FE1CB;margin-right:2px"></span>Criterio LMS</span>
+        <span class="ml-item"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#EEF4FB;border:1px solid #B5D4F4;margin-right:2px"></span>Criterio SSO</span>
+        <span class="ml-item"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#FDF0EC;border:1px solid #F4C0D1;margin-right:2px"></span>Nuevos criterios</span>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <div class="matrix-filters">
+          <button class="mf-btn active" id="btn-all" onclick="filterStatus('all')">Todas</button>
+          <button class="mf-btn" id="btn-pre" onclick="filterStatus('pre')">Preseleccionadas</button>
+          <button class="mf-btn" id="btn-rev" onclick="filterStatus('rev')">En revisión</button>
+          <button class="mf-btn" id="btn-des" onclick="filterStatus('des')">Descartadas</button>
+        </div>
+        <button class="sort-toggle" onclick="sortToggle()">Ordenar ↕</button>
+      </div>
+    </div>
+
+    <div class="matrix-wrap fade-up">
+      <table class="mx">
+        <thead>
+          <tr>
+            <th class="th-tool" style="width:128px">Herramienta</th>
+            <th style="width:50px" title="Presencia en entornos educativos o corporativos">Presencia</th>
+            <th style="width:48px" title="Capacidad multi-usuario">Multi-usuario</th>
+            <th style="width:48px" title="Funcionalidades base">Func. base</th>
+            <th style="width:58px" title="Clases estructuradas">Clases Estr.</th>
+            <th style="width:48px" title="Robustez">Robustez</th>
+            <th class="th-lms" style="width:54px" title="Integración Open LMS / Moodle">Open LMS</th>
+            <th class="th-sso" style="width:54px" title="SSO con Azure AD">SSO Azure</th>
+            <th class="th-div"></th>
+            <th class="th-new" style="width:52px" title="Closed Captions en español">CC Español</th>
+            <th class="th-new" style="width:50px" title="Control de asistencia">Asistencia</th>
+            <th class="th-new" style="width:52px" title="Panel de administración">Admin/Hub</th>
+            <th style="width:72px">Total</th>
+            <th style="width:90px">Estado</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div class="detail-panel" id="detail-panel">Haz clic en el nombre de una herramienta o en cualquier celda para ver el análisis detallado del criterio.</div>
+  </div>
+</section>
+
+<!-- RESULTADOS -->
+<section id="resultados">
+  <div class="section-inner">
+    <div class="section-eyebrow fade-up">
+      <span class="section-number">04</span>
+      <div class="section-rule"></div>
+    </div>
+    <h2 class="section-title fade-up">Clasificación de resultados</h2>
+    <p class="section-sub fade-up">Las herramientas se clasifican en tres categorías según su puntaje total sobre 30 puntos, considerando el umbral de exigencia definido por los criterios institucionales.</p>
+    <div class="results-grid fade-up">
+      <div class="result-group">
+        <h3><span style="background:var(--green)"></span>Preseleccionadas ≥ 24 pts</h3>
+        <div class="result-card pre">
+          <div class="rc-name">Zoom</div>
+          <div><span class="rc-score">29</span><span class="rc-of"> / 30 pts</span></div>
+          <div class="rc-bar"><div class="rc-bar-fill" style="width:96.7%;background:var(--green)"></div></div>
+          <p class="rc-note">LTI Pro oficial para Open LMS · SAML con Azure AD documentado · CC en español con AI Companion · Admin portal robusto</p>
+        </div>
+        <div class="result-card pre">
+          <div class="rc-name">Cisco Webex</div>
+          <div><span class="rc-score">29</span><span class="rc-of"> / 30 pts</span></div>
+          <div class="rc-bar"><div class="rc-bar-fill" style="width:96.7%;background:var(--green)"></div></div>
+          <p class="rc-note">Webex Education Connector para Moodle · CC en español nativo · Control Hub avanzado · SAML con Entra ID</p>
+        </div>
+        <div class="result-card pre">
+          <div class="rc-name">Kaltura Virtual Classroom</div>
+          <div><span class="rc-score">24</span><span class="rc-of"> / 30 pts</span></div>
+          <div class="rc-bar"><div class="rc-bar-fill" style="width:80%;background:var(--green)"></div></div>
+          <p class="rc-note">LTI nativa y profunda con Moodle · Fuerte en pedagogía y analytics · CC más débil en sesiones en vivo</p>
+        </div>
+      </div>
+      <div class="result-group">
+        <h3><span style="background:var(--amber)"></span>En revisión 18–23 pts</h3>
+        <div class="result-card rev">
+          <div class="rc-name">Adobe Connect</div>
+          <div><span class="rc-score">22</span><span class="rc-of"> / 30 pts</span></div>
+          <div class="rc-bar"><div class="rc-bar-fill" style="width:73.3%;background:var(--amber)"></div></div>
+          <p class="rc-note">Reportes de asistencia muy detallados · Sin CC nativo en español · Interfaz administrativa desactualizada</p>
+        </div>
+        <div class="result-card rev">
+          <div class="rc-name">BigBlueButton</div>
+          <div><span class="rc-score">20</span><span class="rc-of"> / 30 pts</span></div>
+          <div class="rc-bar"><div class="rc-bar-fill" style="width:66.7%;background:var(--amber)"></div></div>
+          <p class="rc-note">Open source · Suite pedagógica excelente · SSO y CC requieren configuración manual · Depende de infraestructura propia</p>
+        </div>
+        <div class="result-card rev">
+          <div class="rc-name">Blackboard Collaborate</div>
+          <div><span class="rc-score">19</span><span class="rc-of"> / 30 pts</span></div>
+          <div class="rc-bar"><div class="rc-bar-fill" style="width:63.3%;background:var(--amber)"></div></div>
+          <p class="rc-note">Fuera de su ecosistema nativo (Blackboard) pierde profundidad de integración y soporte</p>
+        </div>
+        <div class="result-card rev">
+          <div class="rc-name">Google Meet</div>
+          <div><span class="rc-score">18</span><span class="rc-of"> / 30 pts</span></div>
+          <div class="rc-bar"><div class="rc-bar-fill" style="width:60%;background:var(--amber)"></div></div>
+          <p class="rc-note">Sin LTI nativa para Open LMS · Sin herramientas pedagógicas · SSO indirecto con Azure AD</p>
+        </div>
+        <div class="result-card rev">
+          <div class="rc-name">GoToMeeting</div>
+          <div><span class="rc-score">18</span><span class="rc-of"> / 30 pts</span></div>
+          <div class="rc-bar"><div class="rc-bar-fill" style="width:60%;background:var(--amber)"></div></div>
+          <p class="rc-note">Sin LTI nativa · CC en español inconsistente · No diseñado para educación formal</p>
+        </div>
+      </div>
+      <div class="result-group">
+        <h3><span style="background:#C8C4BC"></span>Descartadas &lt; 18 pts</h3>
+        <div class="result-card des">
+          <div class="rc-name">RingCentral Video</div>
+          <div><span class="rc-score">15</span><span class="rc-of"> / 30 pts</span></div>
+          <div class="rc-bar"><div class="rc-bar-fill" style="width:50%;background:#C8C4BC"></div></div>
+          <p class="rc-note">Sin LTI para Open LMS · Orientado a corporativo, no educación</p>
+        </div>
+        <div class="result-card des">
+          <div class="rc-name">ClickMeeting</div>
+          <div><span class="rc-score">12</span><span class="rc-of"> / 30 pts</span></div>
+          <div class="rc-bar"><div class="rc-bar-fill" style="width:40%;background:#C8C4BC"></div></div>
+          <p class="rc-note">Sin integración LTI · Sin SSO Azure AD · Orientado a webinars, no aula virtual</p>
+        </div>
+        <div class="result-card des">
+          <div class="rc-name">Jitsi Meet</div>
+          <div><span class="rc-score">9</span><span class="rc-of"> / 30 pts</span></div>
+          <div class="rc-bar"><div class="rc-bar-fill" style="width:30%;background:#C8C4BC"></div></div>
+          <p class="rc-note">Sin CC · Sin asistencia · Sin SSO Azure AD · Sin admin centralizado</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- HALLAZGOS -->
+<section id="hallazgos">
+  <div class="section-inner">
+    <div class="section-eyebrow fade-up">
+      <span class="section-number">05</span>
+      <div class="section-rule"></div>
+    </div>
+    <h2 class="section-title fade-up">Hallazgos clave</h2>
+    <p class="section-sub fade-up">Observaciones críticas que la matriz no comunica directamente y que deben considerarse antes de avanzar a la evaluación técnica profunda.</p>
+    <div class="insights-grid fade-up">
+      <div class="insight" data-n="1">
+        <div class="insight-label">Hallazgo 01</div>
+        <h3>Zoom y Webex empatan en puntaje pero difieren en modelo de operación</h3>
+        <p>Ambas herramientas obtienen 29/30 y son las únicas preseleccionadas sólidas. La diferencia real no está en los criterios técnicos sino en el costo de adopción: Webex tiene Control Hub (potente pero con curva de aprendizaje); Zoom tiene un portal más intuitivo. El equipo de Gestión Tecnológica debe evaluar cuál puede operar sin fricción desde el día uno.</p>
+        <span class="insight-tag" style="background:#E1F5EE;color:#085041">Criterio de decisión: capacidad TI interna</span>
+      </div>
+      <div class="insight" data-n="2">
+        <div class="insight-label">Hallazgo 02</div>
+        <h3>Closed Captions en español es el criterio que más discrimina</h3>
+        <p>De las 11 herramientas evaluadas, solo Zoom y Webex tienen CC en español nativos y confiables en sesiones en vivo y grabaciones. Para una institución educativa con obligaciones de accesibilidad, este criterio debería tener peso doble en la siguiente etapa de evaluación. BigBlueButton y Adobe Connect quedan en desventaja estructural aquí.</p>
+        <span class="insight-tag" style="background:#FDF0EC;color:#8B2E1C">Alta relevancia en accesibilidad</span>
+      </div>
+      <div class="insight" data-n="3">
+        <div class="insight-label">Hallazgo 03</div>
+        <h3>Kaltura es viable solo si Open LMS es el eje central de la experiencia</h3>
+        <p>Kaltura tiene la integración más profunda del mercado con Moodle: las actividades quedan incrustadas dentro del curso, no como enlace externo. Pero su debilidad en CC en vivo y asistencia en sesiones síncronas es un riesgo real si la institución depende de clase en tiempo real. Es una plataforma de video educativo, no solo una herramienta de videoconferencia.</p>
+        <span class="insight-tag" style="background:#EEF4FB;color:#0C447C">Revisar modelo de uso antes de avanzar</span>
+      </div>
+      <div class="insight" data-n="4">
+        <div class="insight-label">Hallazgo 04</div>
+        <h3>BigBlueButton tiene más potencial del que muestra el puntaje</h3>
+        <p>Su puntaje bajo en SSO y CC refleja limitaciones de configuración, no de capacidad del producto. Con un proveedor de hosting BBB (Scalelite) y configuración SAML por parte del equipo TI, su puntaje subiría a ~23. El costo operativo (sin licencia por usuario) lo hace atractivo, pero requiere compromiso técnico real de Gestión Tecnológica.</p>
+        <span class="insight-tag" style="background:#E1F5EE;color:#085041">Potencial si hay capacidad técnica interna</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRÓXIMOS PASOS -->
+<section id="pasos" style="background:var(--cream-alt)">
+  <div class="section-inner">
+    <div class="section-eyebrow fade-up">
+      <span class="section-number">06</span>
+      <div class="section-rule"></div>
+    </div>
+    <h2 class="section-title fade-up">Próximos pasos</h2>
+    <p class="section-sub fade-up">Una vez aprobada la preselección, se recomienda avanzar a la evaluación técnica profunda de las herramientas que superaron el umbral institucional.</p>
+    <div class="steps-list fade-up">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Validación de la preselección</h3>
+          <p>Presentar esta matriz a las partes interesadas (académica, TI, dirección) para confirmar los criterios y los pesos antes de avanzar. Si se requiere ponderación diferencial de criterios, ajustar el instrumento.</p>
+          <div class="resp">→ Responsable: DEV · Gestión Tecnológica</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Evaluación técnica profunda (Zoom y Webex)</h3>
+          <p>Piloto técnico con las dos herramientas preseleccionadas sólidas: prueba de integración real con Open LMS, configuración SSO con Azure AD, prueba de CC en español en condiciones reales de clase, y evaluación de reportes de asistencia exportados al LMS.</p>
+          <div class="resp">→ Responsable: DEV · Gestión Tecnológica + Área Académica</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Evaluación de costo total (TCO)</h3>
+          <p>Comparar no solo licencias sino: costo de implementación, configuración, capacitación del equipo TI, soporte técnico y tiempo estimado para llegar a producción estable. Zoom y Webex tienen modelos de licenciamiento distintos.</p>
+          <div class="resp">→ Responsable: DEV + Área de Compras / Contratos</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h3>Decisión final y contratación</h3>
+          <p>Con los resultados del piloto técnico y el análisis de TCO, elaborar el documento de recomendación final para aprobación. Iniciar proceso de contratación con el proveedor seleccionado.</p>
+          <div class="resp">→ Responsable: DEV · Gestión Tecnológica + Dirección</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BIBLIOGRAFÍA -->
+<section id="bibliografia" style="background:var(--dark)">
+  <div class="section-inner">
+    <div class="section-eyebrow fade-up">
+      <span class="section-number" style="color:var(--amber)">07</span>
+      <div class="section-rule" style="background:rgba(255,255,255,.1)"></div>
+    </div>
+    <h2 class="section-title fade-up" style="color:#fff">Bibliografía y fuentes</h2>
+    <p class="section-sub fade-up" style="color:rgba(255,255,255,.45)">Documentación oficial, guías técnicas y fuentes de referencia consultadas para la evaluación de cada criterio. Clasificadas por herramienta y criterio.</p>
+
+    <div class="bib-grid fade-up">
+
+      <!-- ZOOM -->
+      <div class="bib-card">
+        <div class="bib-tool-header">
+          <span class="bib-tool-name">Zoom</span>
+          <span class="bib-source-count">6 fuentes</span>
+        </div>
+        <ul class="bib-list">
+          <li>
+            <span class="bib-tag">LTI / Open LMS</span>
+            <a href="https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0059608" target="_blank">Configuring LTI Pro 1.3 for Moodle — Zoom Support</a>
+          </li>
+          <li>
+            <span class="bib-tag">LTI / Open LMS</span>
+            <a href="https://zoomappdocs.zoom.us/lti-pro-v2/guides/moodle/lti-1.3" target="_blank">LTI 1.3 Install for Moodle — Zoom App Docs</a>
+          </li>
+          <li>
+            <span class="bib-tag">SSO / Azure AD</span>
+            <a href="https://learn.microsoft.com/en-us/entra/identity/saas-apps/zoom-tutorial" target="_blank">Configure Zoom for SSO with Microsoft Entra ID — Microsoft Learn</a>
+          </li>
+          <li>
+            <span class="bib-tag">SSO / Azure AD</span>
+            <a href="https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064121" target="_blank">Configuring Zoom SSO with Microsoft Entra — Zoom Support</a>
+          </li>
+          <li>
+            <span class="bib-tag">CC en español</span>
+            <a href="https://www.zoom.com/en/products/ai-assistant/features/accessibility/" target="_blank">Zoom AI Companion — Transcripción y subtítulos en 46 idiomas — Zoom.com</a>
+          </li>
+          <li>
+            <span class="bib-tag">CC en español</span>
+            <a href="https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0059081" target="_blank">Enabling and Configuring Translated Captions — Zoom Support</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- CISCO WEBEX -->
+      <div class="bib-card">
+        <div class="bib-tool-header">
+          <span class="bib-tool-name">Cisco Webex</span>
+          <span class="bib-source-count">7 fuentes</span>
+        </div>
+        <ul class="bib-list">
+          <li>
+            <span class="bib-tag">LTI / Open LMS</span>
+            <a href="https://help.webex.com/en-us/article/n9k07hw/Create-a-Webex-LTI-registration-in-Moodle" target="_blank">Create a Webex LTI Registration in Moodle — Webex Help Center</a>
+          </li>
+          <li>
+            <span class="bib-tag">LTI / Open LMS</span>
+            <a href="https://help.webex.com/en-US/article/pzhlqj/Install-the-Webex-Education-Connector-in-Moodle" target="_blank">Install the Webex Education Connector in Moodle — Webex Help Center</a>
+          </li>
+          <li>
+            <span class="bib-tag">LTI / Open LMS</span>
+            <a href="https://help.webex.com/article/nag52teb/What's-New-for-the-Latest-Versions-of-Webex-Education-Connector" target="_blank">What's New for Webex LTI (migración LTI 1.3) — Webex Help Center</a>
+          </li>
+          <li>
+            <span class="bib-tag">SSO / Azure AD</span>
+            <a href="https://help.webex.com/en-us/article/mfu88u/Configure-single-sign-on-in-Control-Hub-with-Microsoft-Azure" target="_blank">Configure SSO in Control Hub with Microsoft Azure — Webex Help Center</a>
+          </li>
+          <li>
+            <span class="bib-tag">SSO / Azure AD</span>
+            <a href="https://help.webex.com/article/heauzeb/Set-up-Azure-AD-Wizard-App-in-Control-Hub" target="_blank">Set up the Entra ID Wizard App in Control Hub — Webex Help Center</a>
+          </li>
+          <li>
+            <span class="bib-tag">CC en español</span>
+            <a href="https://help.webex.com/en-us/article/lzi8h2/Show-or-hide-automated-closed-captions-during-a-Webex-meeting-or-webinar" target="_blank">Show or Hide Automated Closed Captions in Webex — Webex Help Center</a>
+          </li>
+          <li>
+            <span class="bib-tag">CC en español</span>
+            <a href="https://help.webex.com/en-us/article/4gbs15/Compare-Webex-Assistant-and-automated-closed-captions" target="_blank">Compare Webex Assistant and Automated Closed Captions — Webex Help Center</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- KALTURA -->
+      <div class="bib-card">
+        <div class="bib-tool-header">
+          <span class="bib-tool-name">Kaltura Virtual Classroom</span>
+          <span class="bib-source-count">4 fuentes</span>
+        </div>
+        <ul class="bib-list">
+          <li>
+            <span class="bib-tag">LTI / Open LMS</span>
+            <a href="https://knowledge.kaltura.com/help/overview-of-the-kaltura-video-package-for-moodle" target="_blank">Introduction to Kaltura LMS Video Integration for Moodle — Kaltura Knowledge Center</a>
+          </li>
+          <li>
+            <span class="bib-tag">LTI / Open LMS</span>
+            <a href="https://knowledge.kaltura.com/help/set-up-kaltura-video-integration-for-moodle-4x" target="_blank">Set up Kaltura LMS Video Integration for Moodle 4.x — Kaltura Knowledge Center</a>
+          </li>
+          <li>
+            <span class="bib-tag">LTI / Open LMS</span>
+            <a href="https://knowledge.kaltura.com/help/moodle-deployment-guide-kaltura-video-app-upgrading-from-lti-11-to-lti-13" target="_blank">Upgrading Kaltura from LTI 1.1 to LTI 1.3 for Moodle — Kaltura Knowledge Center</a>
+          </li>
+          <li>
+            <span class="bib-tag">General</span>
+            <a href="https://kalt2023.kaltura.com/education-video-platform/" target="_blank">Kaltura Video Cloud Platform for Education — Kaltura.com</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- BIGBLUEBUTTON -->
+      <div class="bib-card">
+        <div class="bib-tool-header">
+          <span class="bib-tool-name">BigBlueButton</span>
+          <span class="bib-source-count">4 fuentes</span>
+        </div>
+        <ul class="bib-list">
+          <li>
+            <span class="bib-tag">LTI / Open LMS</span>
+            <a href="https://moodle.org/plugins/mod_bigbluebuttonbn" target="_blank">BigBlueButton BN Plugin — Moodle Plugins Directory</a>
+          </li>
+          <li>
+            <span class="bib-tag">LTI / Open LMS</span>
+            <a href="https://bigbluebutton.org/moodle-integration/" target="_blank">Moodle Integration — BigBlueButton Official Site</a>
+          </li>
+          <li>
+            <span class="bib-tag">LTI / Open LMS</span>
+            <a href="https://docs.moodle.org/502/en/BigBlueButton" target="_blank">BigBlueButton en Moodle — MoodleDocs</a>
+          </li>
+          <li>
+            <span class="bib-tag">General</span>
+            <a href="https://moodle.com/certified-integrations/bigbluebutton/" target="_blank">BigBlueButton — Certified Integration — Moodle.com</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- MICROSOFT (SSO REFERENCIA GENERAL) -->
+      <div class="bib-card">
+        <div class="bib-tool-header">
+          <span class="bib-tool-name">Microsoft Entra ID / Azure AD</span>
+          <span class="bib-source-count">2 fuentes</span>
+        </div>
+        <ul class="bib-list">
+          <li>
+            <span class="bib-tag">SSO General</span>
+            <a href="https://learn.microsoft.com/en-us/entra/identity/saas-apps/zoom-tutorial" target="_blank">Microsoft Entra SSO Integration with Zoom — Microsoft Learn</a>
+          </li>
+          <li>
+            <span class="bib-tag">SSO General</span>
+            <a href="https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/cisco-webex-tutorial" target="_blank">Microsoft Entra SSO Integration with Cisco Webex Meetings — Microsoft Learn</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- HERRAMIENTAS DESCARTADAS / EN REVISIÓN -->
+      <div class="bib-card">
+        <div class="bib-tool-header">
+          <span class="bib-tool-name">Otras herramientas evaluadas</span>
+          <span class="bib-source-count">5 fuentes</span>
+        </div>
+        <ul class="bib-list">
+          <li>
+            <span class="bib-tag">Adobe Connect</span>
+            <a href="https://helpx.adobe.com/adobe-connect/using/administering-adobe-connect.html" target="_blank">Administering Adobe Connect — Adobe Help Center</a>
+          </li>
+          <li>
+            <span class="bib-tag">Google Meet</span>
+            <a href="https://workspace.google.com/intl/es/products/meet/" target="_blank">Google Meet — Workspace Education — Google.com</a>
+          </li>
+          <li>
+            <span class="bib-tag">Blackboard Collaborate</span>
+            <a href="https://help.blackboard.com/Collaborate" target="_blank">Blackboard Collaborate — Blackboard Help Center</a>
+          </li>
+          <li>
+            <span class="bib-tag">GoToMeeting</span>
+            <a href="https://www.goto.com/meeting" target="_blank">GoToMeeting — Producto oficial — GoTo.com</a>
+          </li>
+          <li>
+            <span class="bib-tag">Jitsi Meet</span>
+            <a href="https://jitsi.org/jitsi-meet/" target="_blank">Jitsi Meet — Open Source Video Conferencing — Jitsi.org</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="bib-note fade-up">
+      <strong style="color:rgba(255,255,255,.7)">Nota metodológica:</strong> Todas las fuentes corresponden a documentación oficial de los proveedores o a artículos técnicos verificados. Los puntajes asignados en la matriz reflejan el estado de las integraciones y funcionalidades documentadas al momento de la elaboración de este informe (mayo 2026). Se recomienda verificar actualizaciones antes de la evaluación técnica profunda.
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Compensar · <em>Fundación Universitaria</em></div>
+  <div class="footer-sub">Gestión Tecnológica · DEV · Fase 1: Exploración y Preselección</div>
+  <div class="footer-chips">
+    <span class="footer-chip">11 herramientas evaluadas</span>
+    <span class="footer-chip">10 criterios</span>
+    <span class="footer-chip">Open LMS · Azure AD</span>
+    <span class="footer-chip">Soporte en español</span>
+  </div>
+</footer>
+
+<script>
+/* ---- MATRIX DATA ---- */
+const CR=['Presencia edu/corp','Multi-usuario','Func. base','Clases estructuradas','Robustez','Open LMS (Moodle)','SSO Azure AD','CC en español (vivo + grabaciones)','Asistencia a sesiones','Panel de administración'];
+const TOOLS=[
+  {name:'Zoom',scores:[3,3,3,2,3,3,3,3,3,3],notes:[
+    'Líder global de mercado en educación y empresas. Soporte en español completo. Alta familiaridad de usuarios.',
+    'Hasta 1.000 participantes (Enterprise). Zoom Webinars permite hasta 50.000 asistentes.',
+    'Audio/video HD, grabación local y nube, pizarra, encuestas, sala de espera, Q&A, notas de reunión.',
+    'Breakout rooms robustos y configurables. Zoom LTI Pro bien documentado. Sin herramientas pedagógicas propias nativas.',
+    'CDN global probado bajo alta demanda. Alta estabilidad histórica. Recuperación rápida ante incidentes.',
+    'Zoom LTI Pro: integración oficial y activamente mantenida con Open LMS/Moodle. Documentación completa y comunidad activa.',
+    'SAML 2.0 con Azure AD/Entra ID documentado oficialmente. Configuración directa y soportada por Zoom.',
+    'AI Companion transcribe en tiempo real en español con alta precisión. Grabaciones con transcripción automática en español, búsqueda dentro del texto y descarga. Disponible en planes Education.',
+    'Reporte detallado por sesión: hora de ingreso/salida, duración, nombre y email. Exportable a CSV. Se integra al registro de actividad de Open LMS vía LTI.',
+    'Zoom Admin Portal muy completo: gestión de usuarios, políticas de seguridad por rol/grupo, reportes de uso, dashboard de calidad de red. Intuitivo y bien documentado.'
+  ]},
+  {name:'Cisco Webex',scores:[3,3,3,2,3,3,3,3,3,3],notes:[
+    'Sólida presencia corporativa global. Webex Education Connector activo en educación superior. Soporte español nativo.',
+    'Hasta 1.000 participantes en planes Education. Webex Webinars hasta 100.000 asistentes.',
+    'Audio/video HD, grabación, Q&A, encuestas, pizarra Webex, subtítulos automáticos en tiempo real.',
+    'Webex Training Sessions con breakout sessions y polling. Menos herramientas pedagógicas propias que otros competidores.',
+    'Infraestructura Cisco de clase empresarial. Alta confiabilidad. SLA corporativo robusto.',
+    'Webex Education Connector: integración LTI oficial para Open LMS/Moodle. Soportada y documentada por Cisco.',
+    'SAML 2.0 con Azure AD. Documentación oficial de Cisco para integración con Microsoft Entra ID.',
+    'Subtítulos en español en tiempo real con tecnología propia Cisco, sin dependencia de terceros. Grabaciones con transcripción automática en español y búsqueda. Uno de los mejores del mercado.',
+    'Control Hub provee reportes de asistencia muy completos: tiempo en sesión, engagement score, participación en Q&A y encuestas. Datos históricos exportables e integración con Open LMS.',
+    'Control Hub es el panel más completo del mercado: gestión centralizada de usuarios, dispositivos, servicios y seguridad. Analytics avanzados, alertas proactivas y troubleshooting en tiempo real. Potente pero con curva de aprendizaje para administradores nuevos.'
+  ]},
+  {name:'Kaltura Virtual Class.',scores:[2,2,2,3,3,3,3,2,2,2],notes:[
+    'Plataforma de video educativo en universidades de EE.UU., España y LatAm. Menos reconocida que Zoom/Webex. Soporte español.',
+    'Hasta 200 participantes en sesiones síncronas. Escalable a más estudiantes vía live streaming asíncrono.',
+    'Audio, video, grabación, pantalla compartida, quiz en vivo, pizarra, anotaciones sobre contenido. Sólido.',
+    'Diseñado para educación: quizzes integrados, grupos, anotaciones en video, analytics de participación por alumno.',
+    'SaaS en nube con SLA empresarial. Alta disponibilidad. Respaldado por contratos con instituciones educativas.',
+    'Integración LTI nativa y profunda con Open LMS/Moodle. Actividades Kaltura incrustadas directamente en el curso del LMS.',
+    'SAML 2.0 con Azure AD/Entra ID. Documentación oficial disponible. Compatible con el contexto institucional.',
+    'Captions automáticos en grabaciones asíncronas con buen soporte en español. En sesiones en vivo depende del navegador. Más fuerte en video asíncrono que en clase en vivo.',
+    'Analytics de participación por alumno dentro de Open LMS: tiempo de reproducción, progreso, quizzes completados. Reporte de asistencia básico en sesiones en vivo.',
+    'Kaltura Management Console (KMC) robusta para video y usuarios. Control granular de permisos y contenido. Menos enfocada en administración de sesiones síncronas en tiempo real.'
+  ]},
+  {name:'Adobe Connect',scores:[2,2,3,3,2,2,2,1,3,2],notes:[
+    'Herramienta madura en formación corporativa, gobierno y e-learning formal. Base instalada nicho. Soporte español.',
+    'Hasta 1.500 participantes. Optimizado para eventos grandes y sesiones de capacitación masiva.',
+    'Sistema de pods altamente personalizable: audio, video, grabación, chat, archivos, encuestas, notas. Muy completo.',
+    'Arquitectura de pods configurable para diseño instruccional avanzado. Salas persistentes reutilizables entre sesiones.',
+    'Dependiente del ciclo de releases de Adobe. Actualizaciones menos frecuentes. Mayor curva de administración.',
+    'Integración LTI básica para Open LMS/Moodle disponible. Menos nativa y documentada que Zoom, Webex o BBB.',
+    'SAML 2.0 compatible con Azure AD. Requiere configuración adicional; no tan directa como competidores principales.',
+    'Sin CC nativos en español. Requiere integración con servicios de captioning de terceros. Agrega complejidad operativa y posible costo adicional.',
+    'Reportes de asistencia muy completos: tiempo en sala, interacciones con pods, engagement score por participante. Una de las herramientas más avanzadas en este aspecto.',
+    'Adobe Connect Central con gestión de usuarios, salas y reportes. Funcional pero con interfaz desactualizada. Curva de aprendizaje para administradores nuevos en la plataforma.'
+  ]},
+  {name:'BigBlueButton',scores:[2,2,2,3,2,3,2,1,2,1],notes:[
+    'Diseñado exclusivamente para educación online. Open source. Popular en universidades públicas de LatAm y España.',
+    'Hasta ~150 participantes con rendimiento estable, dependiente de la infraestructura del servidor institucional.',
+    'Audio, video, grabación, pizarra colaborativa, notas compartidas, chat. Funcional sin capas de IA adicionales.',
+    'La suite pedagógica más completa: pizarra avanzada, votaciones, grupos, presentaciones integradas. Pensada para docentes.',
+    'Depende del servidor propio. Con Scalelite (balanceador oficial) la robustez mejora considerablemente.',
+    'Plugin nativo oficial para Moodle (mod_bigbluebuttonbn). La integración más profunda disponible para Open LMS.',
+    'Compatible con Azure AD vía SAML, pero requiere configuración manual del servidor. No es plug-and-play.',
+    'Sin CC nativo en sesiones en vivo. El usuario depende de los captions del navegador. Grabaciones sin transcripción automática en español por defecto.',
+    'Reporte de asistencia básico en Open LMS a través del plugin: registra presencia y duración. Sin métricas de engagement avanzadas.',
+    'Administración vía Greenlight o directamente en el servidor Linux. Funcional pero técnico. Sin panel visual centralizado comparable a Zoom o Webex.'
+  ]},
+  {name:'Blackboard Collaborate',scores:[2,2,2,3,2,2,1,1,2,2],notes:[
+    'Uso predominante dentro del ecosistema Blackboard/Anthology. Fuera de ese LMS su adopción baja significativamente.',
+    'Hasta 500 participantes en sesiones estándar.',
+    'Audio, video, grabación, pizarra, chat, compartir pantalla. Sin funciones avanzadas de IA ni analytics propios.',
+    'Diseñado para clases síncronas: breakout groups, sondeos, pizarra, flujo pedagógico estructurado.',
+    'Dependiente de Anthology. Rendimiento variable en picos de demanda. No es solución autónoma.',
+    'Integración LTI para Open LMS/Moodle disponible pero no es su integración nativa. Menos documentada y mantenida.',
+    'SSO diseñado para el ecosistema Blackboard. Integración con Azure AD es posible pero indirecta y con mayor fricción.',
+    'CC vía WebRTC del navegador en sesiones en vivo. Calidad en español inconsistente. Grabaciones sin transcripción automática nativa en español.',
+    'Reporte de asistencia: ingreso, salida y duración. Funcional dentro del ecosistema Blackboard. Limitado fuera de él.',
+    'Panel de administración dentro de la consola Blackboard. Completo en su ecosistema, dependiente de Anthology para gestión avanzada.'
+  ]},
+  {name:'Google Meet',scores:[3,2,2,1,3,1,1,2,1,2],notes:[
+    'Alta presencia general pero no especializada en formación formal estructurada. Soporte español completo.',
+    'Hasta 1.000 participantes en Workspace Enterprise. Planes estándar limitados a 100–500 participantes.',
+    'Audio, video, subtítulos automáticos. Grabación solo en planes pagos. Encuestas y Q&A muy básicos.',
+    'Sin herramientas pedagógicas propias. Sin breakout rooms robustos. No apto para clase estructurada avanzada.',
+    'Alta disponibilidad en infraestructura Google Cloud. Técnicamente muy confiable a gran escala.',
+    'Sin integración LTI nativa para Open LMS. Solo conecta con Google Classroom. Limitante crítica.',
+    'SSO nativo con Google Workspace. Integración con Azure AD requiere federación adicional; no es directa.',
+    'Live captions en español disponibles en Google Workspace Education. Grabaciones con transcripción en español en Drive. Calidad aceptable pero por debajo de Zoom/Webex.',
+    'Datos de asistencia muy limitados. Solo accesibles para admins de Workspace. Sin exportación al LMS.',
+    'Google Admin Console robusta para Workspace pero no especializada en videoconferencia. Completa pero sin granularidad para VC educativo.'
+  ]},
+  {name:'GoToMeeting',scores:[2,2,3,1,2,1,2,1,2,2],notes:[
+    'Herramienta madura con presencia corporativa en LatAm y España (LogMeIn/GoTo). Baja adopción en educación formal.',
+    'Hasta 250 participantes en plan Business. GoTo Webinar escala hasta 3.000 asistentes.',
+    'Audio, video, grabación en nube, transcripción automática, pantalla compartida, pizarra básica. Funcional.',
+    'No diseñado para educación. Sin breakout rooms ni herramientas pedagógicas propias.',
+    'Infraestructura LogMeIn/GoTo. Rendimiento estable pero sin el nivel de Azure, AWS o Cisco.',
+    'Sin LTI nativo para Open LMS. Integración solo vía plugins de terceros sin soporte oficial.',
+    'SAML 2.0 disponible. Compatible con Azure AD a nivel básico. Documentación limitada.',
+    'Transcripción automática principalmente en inglés. Soporte en español limitado y en fase de mejora. No confiable para uso institucional en español.',
+    'Reporte básico de asistencia: hora de entrada/salida y duración. Exportable. Sin métricas de engagement educativo.',
+    'GoTo Admin Center con gestión de usuarios, licencias y reportes básicos. Funcional para corporativo pequeño. Sin profundidad analítica.'
+  ]},
+  {name:'RingCentral Video',scores:[2,2,2,1,2,0,2,1,1,2],notes:[
+    'Plataforma UCaaS corporativa (EE.UU.). Sin presencia relevante en educación formal. Soporte en español disponible.',
+    'Hasta 500 participantes en planes avanzados (RingCentral MVP).',
+    'Audio, video, grabación en nube, chat, pantalla compartida. Sin pizarra avanzada ni herramientas pedagógicas.',
+    'No tiene herramientas pedagógicas. Orientado puramente a reuniones y comunicaciones corporativas.',
+    'Infraestructura cloud con SLA corporativo. Estable para uso empresarial estándar.',
+    'Sin integración LTI para Open LMS. No existe conector oficial ni plugin mantenido para Moodle.',
+    'SAML 2.0 compatible con Azure AD. Documentación disponible aunque no especializada en contexto educativo.',
+    'RingSense AI tiene transcripción pero el soporte en español es parcial. No documentado para uso educativo en español de forma confiable.',
+    'Reportes básicos de reunión sin métricas de engagement educativo. Sin integración con LMS.',
+    'RingCentral Admin Portal completo para UCaaS: usuarios, permisos, reportes. Más robusto en telefonía que en videoconferencia.'
+  ]},
+  {name:'Jitsi Meet',scores:[2,2,2,1,1,1,0,0,0,0],notes:[
+    'Open source popular en LatAm y Europa como alternativa gratuita. Uso creciente en universidades públicas con presupuesto limitado.',
+    'Hasta ~75–100 participantes con rendimiento aceptable. Más allá se degrada notablemente.',
+    'Audio, video, grabación vía Jibri, chat, pantalla compartida. Funcional básico sin valor agregado.',
+    'Sin herramientas pedagógicas nativas. Breakout rooms muy básicos. No apto para clases estructuradas complejas.',
+    'Sin SLA en versión pública (meet.jit.si). Servidor propio requiere infraestructura y equipo técnico dedicado.',
+    'Plugin no oficial para Moodle, sin mantenimiento garantizado ni soporte institucional.',
+    'Sin soporte SAML estándar en versión pública. Integración con Azure AD no documentada oficialmente.',
+    'Sin closed captions nativos en ninguna modalidad. Sin transcripción en grabaciones.',
+    'Sin registro de asistencia. Sin reportes de ningún tipo en versión estándar.',
+    'Sin panel de administración centralizado. Configuración solo a nivel de servidor Linux.'
+  ]},
+  {name:'ClickMeeting',scores:[1,2,2,2,1,0,0,1,2,1],notes:[
+    'Plataforma polaca orientada a webinars. Presencia en Europa y LatAm. No es herramienta de aula virtual.',
+    'Hasta 1.000 asistentes en webinar. Salas de reunión estándar hasta 40 participantes.',
+    'Audio, video, grabación, encuestas, Q&A, pizarra básica, compartir pantalla. Adecuado para webinar.',
+    'Adecuada para webinars con polling y Q&A. Sin breakout rooms robustos ni entorno de aula virtual.',
+    'Infraestructura propia de menor escala. Sin SLA empresarial comparable a grandes proveedores cloud.',
+    'Sin integración LTI para Open LMS. No existe conector oficial. Incompatible con el ecosistema Moodle.',
+    'Sin SSO institucional nativo. Sin soporte SAML ni Azure AD. Limitante crítica para el entorno institucional.',
+    'CC básico para sesiones con soporte en español limitado. Grabaciones sin transcripción automática confiable.',
+    'Reportes de asistencia para webinars: tiempo en sesión e interacciones. Más completo para webinars que para clases.',
+    'Dashboard de administración básico. Sin capacidades avanzadas de seguridad o reporting institucional.'
+  ]}
+];
+
+let sortAsc=false;
+let activeFilter='all';
+let data=[...TOOLS].sort((a,b)=>tot(b)-tot(a));
+
+function tot(t){return t.scores.reduce((a,b)=>a+b,0);}
+function status(s){if(s>=24)return{l:'Preseleccionada',c:'bp'};if(s>=18)return{l:'En revisión',c:'br'};return{l:'Descartada',c:'bd'};}
+
+function render(){
+  const tb=document.getElementById('tbody');
+  tb.innerHTML='';
+  let visible=data;
+  if(activeFilter==='pre') visible=data.filter(t=>tot(t)>=24);
+  else if(activeFilter==='rev') visible=data.filter(t=>tot(t)>=18&&tot(t)<24);
+  else if(activeFilter==='des') visible=data.filter(t=>tot(t)<18);
+  visible.forEach(tool=>{
+    const ti=TOOLS.indexOf(tool);
+    const total=tot(tool);
+    const pct=Math.round((total/30)*100);
+    const st=status(total);
+    const tr=document.createElement('tr');
+    let h=`<td class="tn" onclick="showTool(${ti})">${tool.name}</td>`;
+    tool.scores.forEach((s,si)=>{
+      const isNew=si>=7;
+      const isLms=si===5;
+      const isSso=si===6;
+      let style='';
+      if(isNew) style=' style="outline:1px solid #F4C0D1;outline-offset:-1px"';
+      else if(isLms) style=' style="outline:1px solid #9FE1CB;outline-offset:-1px"';
+      else if(isSso) style=' style="outline:1px solid #B5D4F4;outline-offset:-1px"';
+      if(si===7) h+=`<td class="td-div"></td>`;
+      h+=`<td class="sc s${s}"${style} onclick="showNote(${ti},${si})">${s}</td>`;
+    });
+    h+=`<td class="tot-cell">${total}<span class="bar-wrap"><span class="bar-fill" style="width:${pct}%"></span></span></td>`;
+    h+=`<td><span class="badge ${st.c}">${st.l}</span></td>`;
+    tr.innerHTML=h;
+    tb.appendChild(tr);
+  });
+}
+
+function sortToggle(){
+  sortAsc=!sortAsc;
+  data.sort((a,b)=>sortAsc?tot(a)-tot(b):tot(b)-tot(a));
+  render();
+}
+
+function filterStatus(f){
+  activeFilter=f;
+  ['all','pre','rev','des'].forEach(k=>document.getElementById('btn-'+k).classList.toggle('active',k===f));
+  render();
+}
+
+function showNote(ti,si){
+  const tool=TOOLS[ti];
+  const s=tool.scores[si];
+  const labs=['No cumple (0)','Parcial (1)','Cumple (2)','Óptimo (3)'];
+  const cls=['bd','br','s2','bp'];
+  document.getElementById('detail-panel').innerHTML=
+    `<b>${tool.name}</b> &nbsp;→&nbsp; <b>${CR[si]}</b> &nbsp;<span class="badge ${cls[s]} dp-badge">${labs[s]}</span><br><br>${tool.notes[si]}`;
+}
+
+function showTool(ti){
+  const tool=TOOLS[ti];
+  const total=tot(tool);
+  const st=status(total);
+  document.getElementById('detail-panel').innerHTML=
+    `<b>${tool.name}</b> &nbsp;<span class="badge ${st.c} dp-badge">${st.l}</span> &nbsp;— Puntaje total: <b>${total} / 30 pts</b>. Haz clic en cada celda de criterio para ver el análisis detallado.`;
+}
+
+render();
+
+/* ---- SCROLL ANIMATIONS ---- */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});
+},{threshold:0.08});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
